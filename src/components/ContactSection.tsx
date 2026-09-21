@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Copy, Check, ChevronLeft } from 'lucide-react';
+import { Phone, MapPin, Clock, Copy, Check, ChevronLeft } from 'lucide-react';
 import { businessConfig } from '../config/business';
 
 export const ContactSection: React.FC = () => {
@@ -144,28 +144,6 @@ export const ContactSection: React.FC = () => {
               </div>
               <div className="flex items-center gap-1 text-[#b52667] text-xs sm:text-sm font-semibold group-hover:-translate-x-1 transition-transform">
                 <span>مشاهده صفحه</span>
-                <span className="material-symbols-outlined text-base">chevron_left</span>
-              </div>
-            </a>
-
-            {/* Email Link */}
-            <a
-              href={contact.emailUri}
-              className="flex items-center justify-between p-4 bg-white rounded-xl shadow-xs hover:bg-gray-50 transition-all group border border-[#c5c6cd]/40 min-h-[64px]"
-            >
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gray-100 text-[#101c2c] flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform border border-gray-200">
-                  <Mail className="w-5 h-5 text-[#715b2d]" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-[#44474c]">پست الکترونیک (ایمیل)</span>
-                  <span className="text-xs sm:text-sm text-[#101c2c] font-medium" dir="ltr">
-                    {contact.email}
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 text-[#715b2d] text-xs sm:text-sm font-semibold group-hover:-translate-x-1 transition-transform">
-                <span>ارسال ایمیل</span>
                 <span className="material-symbols-outlined text-base">chevron_left</span>
               </div>
             </a>
