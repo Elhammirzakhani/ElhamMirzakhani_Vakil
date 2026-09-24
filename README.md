@@ -31,8 +31,4 @@ npm run lint    # بررسی تایپ‌ها
 
 React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · فونت وزیرمتن
 
----
-
-طراحی و توسعه: محمد میرزاخانی
-
 </div>
