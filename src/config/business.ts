@@ -67,7 +67,7 @@ export const businessConfig: BusinessConfig = {
     mapsEmbedUrl: "https://www.openstreetmap.org/export/embed.html?bbox=50.8520%2C32.3240%2C50.8670%2C32.3310&layer=mapnik&marker=32.3276%2C50.8596",
     social: {
       instagramHandle: "@ellham.mirzakhani",
-      instagramUrl: "https://instagram.com/ellham.mirzakhani"
+      instagramUrl: "https://www.instagram.com/ellham.mirzakhani/"
     }
   },
   services: [
