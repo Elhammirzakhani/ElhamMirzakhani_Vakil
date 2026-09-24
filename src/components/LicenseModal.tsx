@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, ExternalLink, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, X } from 'lucide-react';
 import { businessConfig } from '../config/business';
+import { Modal } from './Modal';
 
 interface LicenseModalProps {
   isOpen: boolean;
@@ -8,79 +9,55 @@ interface LicenseModalProps {
 }
 
 export const LicenseModal: React.FC<LicenseModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const { attorney, contact } = businessConfig;
+
+  const rows = [
+    { label: 'نام و نام خانوادگی', value: attorney.fullName },
+    { label: 'عنوان حرفه‌ای', value: attorney.title },
+    { label: 'شماره پروانه', value: attorney.licenseNumber },
+    { label: 'حوزه فعالیت', value: `استان ${contact.province}، ${contact.city}` },
+  ];
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="license-modal-title"
-    >
-      <div 
-        className="relative max-w-lg w-full bg-white rounded-2xl overflow-hidden shadow-2xl border border-[#715b2d]/30 text-right"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-[#f8f9ff]">
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#715b2d] text-xl">verified</span>
-            <div>
-              <h3 id="license-modal-title" className="text-base font-bold text-[#151c26]">
-                پروانه رسمی وکالت
-              </h3>
-              <p className="text-xs text-[#715b2d]">
-                {businessConfig.attorney.barAssociation} | پروانه شماره {businessConfig.attorney.licenseNumber}
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
-            aria-label="بستن پنجره"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* License Image View */}
-        <div className="p-4 bg-[#101c2c] flex flex-col items-center justify-center">
-          <div className="relative max-h-[70vh] overflow-hidden rounded-lg shadow-md border-2 border-[#715b2d]/50 bg-black/40">
-            <img
-              src={businessConfig.attorney.licenseImageUrl}
-              alt="تصویر پروانه رسمی وکالت الهام میرزاخانی"
-              className="max-h-[60vh] w-auto object-contain block mx-auto"
-              loading="lazy"
-            />
+    <Modal isOpen={isOpen} onClose={onClose} labelledBy="license-modal-title" className="sm:max-w-lg">
+      <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-line">
+        <div className="flex items-center gap-3">
+          <span className="w-10 h-10 rounded-xl bg-gold-wash text-gold flex items-center justify-center">
+            <BadgeCheck className="w-5 h-5" strokeWidth={1.75} />
+          </span>
+          <div>
+            <h2 id="license-modal-title" className="text-base font-bold text-ink">پروانه رسمی وکالت</h2>
+            <p className="text-xs text-gold">{attorney.barAssociation}</p>
           </div>
         </div>
-
-        {/* Footer Details */}
-        <div className="p-4 bg-[#f8f9ff] text-right space-y-2 text-xs text-[#44474c]">
-          <div className="flex items-center justify-between">
-            <span className="font-medium text-[#151c26]">نام و نام خانوادگی:</span>
-            <span className="font-bold text-[#101c2c]">{businessConfig.attorney.fullName}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="font-medium text-[#151c26]">عنوان حرفه‌ای:</span>
-            <span>{businessConfig.attorney.title}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="font-medium text-[#151c26]">شماره پروانه رسمی:</span>
-            <span className="font-bold text-[#715b2d]">{businessConfig.attorney.licenseNumber}</span>
-          </div>
-          <div className="pt-2 border-t border-gray-200/80 flex items-center justify-between">
-            <span className="text-[11px] text-gray-500">حوزه فعالیت: استان چهارمحال و بختیاری، شهرکرد</span>
-            <button
-              onClick={onClose}
-              className="px-4 py-1.5 bg-[#101c2c] text-white text-xs rounded-lg hover:bg-[#1a2d46] transition-colors"
-            >
-              بستن
-            </button>
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="w-9 h-9 inline-flex items-center justify-center rounded-lg text-subtle hover:text-ink hover:bg-paper transition-colors"
+          aria-label="بستن"
+        >
+          <X className="w-5 h-5" />
+        </button>
       </div>
-    </div>
+
+      <div className="overflow-y-auto">
+        <div className="p-4 bg-ink">
+          <img
+            src={attorney.licenseImageUrl}
+            alt={`تصویر پروانه رسمی وکالت ${attorney.fullName}`}
+            className="max-h-[55dvh] w-auto mx-auto object-contain rounded-lg ring-1 ring-gold-bright/40"
+          />
+        </div>
+
+        <dl className="px-5 py-4 divide-y divide-line text-sm">
+          {rows.map((row) => (
+            <div key={row.label} className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="text-subtle">{row.label}</dt>
+              <dd className="font-bold text-ink text-left">{row.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </Modal>
   );
 };

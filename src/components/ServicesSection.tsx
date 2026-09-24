@@ -1,6 +1,10 @@
 import React from 'react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { LegalService } from '../types';
 import { businessConfig } from '../config/business';
+import { serviceIcons } from './icons';
+import { Reveal } from './Reveal';
+import { SectionHeading } from './SectionHeading';
 
 interface ServicesSectionProps {
   onSelectService: (service: LegalService) => void;
@@ -8,65 +12,57 @@ interface ServicesSectionProps {
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
   return (
-    <section id="services" className="w-full py-12 sm:py-16 bg-[#f8f9ff]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center space-y-2 mb-10 sm:mb-14">
-          <span className="text-xs sm:text-sm font-semibold text-[#715b2d] tracking-wide">
-            صلاحیت‌ها و زمینه‌های وکالت
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#151c26]">
-            حوزه‌های فعالیت حقوقی
-          </h2>
-          <p className="text-xs sm:text-sm text-[#44474c] max-w-2xl px-4 font-medium">
-            خدمات حقوقی و قبول وکالت در مراجع قضایی و ثبتی در چهارمحال و بختیاری و شهرکرد
-          </p>
-          <div className="w-16 h-1 bg-[#715b2d] mx-auto mt-2 rounded-full"></div>
-        </div>
+    <section id="services" aria-labelledby="services-title" className="py-20 sm:py-28">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          id="services-title"
+          eyebrow="زمینه‌های وکالت"
+          title="حوزه‌های فعالیت حقوقی"
+          lead={`قبول وکالت و مشاوره در مراجع قضایی و ثبتی استان ${businessConfig.contact.province} و شهرستان ${businessConfig.contact.city}.`}
+        />
 
-        {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {businessConfig.services.map((service) => (
-            <div
-              key={service.id}
-              onClick={() => onSelectService(service)}
-              className="group cursor-pointer bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-transparent hover:border-[#715b2d]/40 relative overflow-hidden"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  onSelectService(service);
-                }
-              }}
-              aria-label={`مشاهده جزئیات ${service.title}`}
-            >
-              {/* Subtle gold hover indicator on right border */}
-              <div className="absolute top-0 right-0 w-1 h-0 bg-[#715b2d] group-hover:h-full transition-all duration-300"></div>
+        <div className="mt-12 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+          {businessConfig.services.map((service, idx) => {
+            const Icon = serviceIcons[service.icon];
+            return (
+              <Reveal as="article" key={service.id} delay={(idx % 2) * 0.08}>
+                <div className="group relative h-full flex flex-col rounded-3xl bg-surface p-7 sm:p-8 ring-1 ring-line shadow-soft transition-[box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift focus-within:shadow-lift">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="w-14 h-14 rounded-2xl bg-gold-wash text-gold flex items-center justify-center ring-1 ring-gold/15 transition-colors duration-300 group-hover:bg-ink group-hover:text-gold-soft">
+                      <Icon className="w-6 h-6" strokeWidth={1.6} />
+                    </span>
+                    <span className="text-xs font-semibold text-subtle bg-paper rounded-full px-3 py-1 ring-1 ring-line">
+                      {service.scope}
+                    </span>
+                  </div>
 
-              <div className="space-y-4 text-right">
-                <div className="w-12 h-12 rounded-xl bg-[#f8f9ff] flex items-center justify-center text-[#715b2d] group-hover:bg-[#101c2c] group-hover:text-white transition-colors border border-gray-100 shadow-xs">
-                  <span className="material-symbols-outlined text-2xl">{service.icon}</span>
+                  <h3 className="mt-6 text-xl sm:text-2xl font-extrabold text-ink">{service.title}</h3>
+                  <p className="mt-3 text-sm sm:text-base leading-8 text-muted">{service.description}</p>
+
+                  <ul className="mt-5 space-y-2.5">
+                    {service.details.slice(0, 2).map((detail) => (
+                      <li key={detail} className="flex items-start gap-2.5 text-sm text-ink/80 leading-7">
+                        <Check className="w-4 h-4 mt-1.5 text-gold-bright shrink-0" strokeWidth={2.25} />
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto pt-7">
+                    <button
+                      type="button"
+                      onClick={() => onSelectService(service)}
+                      className="inline-flex items-center gap-2 text-sm font-bold text-gold after:absolute after:inset-0 after:rounded-3xl after:content-['']"
+                      aria-label={`مشاهده جزئیات ${service.title}`}
+                    >
+                      <span>همه موضوعات و جزئیات</span>
+                      <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1.5" />
+                    </button>
+                  </div>
                 </div>
-
-                <h3 className="text-lg font-bold text-[#151c26] group-hover:text-[#101c2c] transition-colors">
-                  {service.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-[#44474c] leading-relaxed line-clamp-4">
-                  {service.description}
-                </p>
-              </div>
-
-              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between text-[#715b2d] text-xs sm:text-sm font-semibold">
-                <span>{service.scope}</span>
-                <div className="flex items-center gap-1 group-hover:-translate-x-1.5 transition-transform">
-                  <span className="text-xs">مشاهده</span>
-                  <span className="material-symbols-outlined text-base">arrow_back</span>
-                </div>
-              </div>
-            </div>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

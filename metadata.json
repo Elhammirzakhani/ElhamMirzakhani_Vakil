@@ -1,6 +1,0 @@
-{
-  "name": "دفتر وکالت الهام میرزاخانی",
-  "description": "وب‌سایت رسمی الهام میرزاخانی، وکیل پایه یک دادگستری در شهرکرد. ارائه خدمات حقوقی، کیفری، خانواده و ثبتی با پروانه رسمی وکالت شماره ۴۳۱.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

@@ -3,7 +3,7 @@ import { BusinessConfig } from '../types';
 const rawPhone = "09131803538";
 const internationalPhone = "+989131803538";
 const whatsappDigits = "989131803538";
-const whatsappMessage = "سلام، برای دریافت مشاوره حقوقی با شما تماس میگیرم.";
+const whatsappMessage = "سلام، برای دریافت مشاوره حقوقی با شما تماس می‌گیرم.";
 
 export const businessConfig: BusinessConfig = {
   attorney: {
@@ -22,31 +22,32 @@ export const businessConfig: BusinessConfig = {
         {
           title: "رازداری و امانتداری",
           desc: "حفظ کامل محرمانگی اطلاعات، اسناد و اسرار حقوقی موکلین در تمامی مراحل رسیدگی.",
-          icon: "lock"
+          icon: "confidentiality"
         },
         {
           title: "شفافیت و صداقت حقوقی",
           desc: "تبیین شفاف مسیر قانونی، شانس موفقیت و پرهیز از وعده‌های غیرواقعی و غیرحقوقی.",
-          icon: "visibility"
+          icon: "transparency"
         },
         {
           title: "دقت در مطالعه اسناد",
           desc: "بررسی جامع پرونده‌ها، تدوین لوایح تخصصی و دفاع مستدل در محاکم دادگستری.",
-          icon: "menu_book"
+          icon: "documents"
         },
         {
           title: "پیگیری مستمر دعاوی",
           desc: "حضور مؤثر در جلسات دادگاه و اطلاع‌رسانی منظم به موکل از روند پیشرفت پرونده.",
-          icon: "update"
+          icon: "followup"
         }
       ]
     }
   },
   contact: {
-    phoneDisplay: "0913 180 3538",
+    phoneDisplay: "۰۹۱۳ ۱۸۰ ۳۵۳۸",
     phoneInternational: "+98 913 180 3538",
     telUri: `tel:${internationalPhone}`,
-    whatsappNumber: "0913 180 3538",
+    whatsappNumber: "۰۹۱۳ ۱۸۰ ۳۵۳۸",
+    whatsappDigits,
     whatsappPrefillMessage: whatsappMessage,
     whatsappUrl: `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(whatsappMessage)}`,
     email: "contact@elham-mirzakhani.ir",
@@ -56,12 +57,14 @@ export const businessConfig: BusinessConfig = {
     province: "چهارمحال و بختیاری",
     workingHours: "عصرها از ساعت ۱۷:۰۰ الی ۲۰:۰۰",
     workingDays: "شنبه تا چهارشنبه",
+    workingHoursShort: "۱۷:۰۰ تا ۲۰:۰۰",
     appointmentNote: "مراجعات حضوری صرفاً با هماهنگی تلفنی قبلی جهت مطالعه دقیق پرونده و مدارک انجام می‌گردد.",
     mapsCoordinates: {
       lat: 32.3276,
       lng: 50.8596
     },
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=32.3276,50.8596",
+    mapsEmbedUrl: "https://www.openstreetmap.org/export/embed.html?bbox=50.8520%2C32.3240%2C50.8670%2C32.3310&layer=mapnik&marker=32.3276%2C50.8596",
     social: {
       instagramHandle: "@ellham.mirzakhani",
       instagramUrl: "https://instagram.com/ellham.mirzakhani"
@@ -71,7 +74,7 @@ export const businessConfig: BusinessConfig = {
     {
       id: "civil",
       title: "دعاوی حقوقی",
-      icon: "balance",
+      icon: "civil",
       description: "رسیدگی به اختلافات مالی، دعاوی ملکی و سرقفلی، دعاوی قراردادی، مطالبه وجه چک، سفته و اسناد تعهدآور، جبران خسارت و الزام به ایفای تعهدات.",
       details: [
         "دعاوی ملکی، تصرف عدوانی، خلع ید و الزام به تنظیم سند رسمی",
@@ -84,7 +87,7 @@ export const businessConfig: BusinessConfig = {
     {
       id: "criminal",
       title: "دعاوی کیفری",
-      icon: "gavel",
+      icon: "criminal",
       description: "مشاوره و وکالت در دعاوی و شکایات کیفری از قبیل کلاهبرداری، خیانت در امانت، انتقال مال غیر، جعل و استفاده از سند مجعول و جرایم مالی.",
       details: [
         "وکالت در پرونده‌های کلاهبرداری، تحصیل مال نامشروع و انتقال مال غیر",
@@ -97,7 +100,7 @@ export const businessConfig: BusinessConfig = {
     {
       id: "family",
       title: "دعاوی خانواده",
-      icon: "family_restroom",
+      icon: "family",
       description: "مشاوره تخصصی و پیگیری امور حقوقی خانواده، طلاق، مهریه، نفقه، حضانت فرزندان، امور حجر و سرپرستی و ترکه و تقسیم ارث.",
       details: [
         "مطالبه مهریه، نفقه زوجه و فرزندان، و اجرت‌المثل ایام زوجیت",
@@ -110,7 +113,7 @@ export const businessConfig: BusinessConfig = {
     {
       id: "registration",
       title: "دعاوی ثبتی",
-      icon: "history_edu",
+      icon: "registration",
       description: "پیگیری دعاوی مربوط به اسناد مالکیت، ثبت املاک، اجرای مفاد اسناد رسمی لازم‌الاجرا، تحدید حدود و حل اختلافات و تعارضات ثبتی.",
       details: [
         "پیگیری اجرای اسناد رسمی لازم‌الاجرا از طریق اجرای ثبت",

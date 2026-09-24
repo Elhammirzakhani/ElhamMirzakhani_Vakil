@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
@@ -14,46 +15,34 @@ export default function App() {
   const [isLicenseModalOpen, setIsLicenseModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<LegalService | null>(null);
 
+  const openLicense = () => setIsLicenseModalOpen(true);
+
   return (
-    <div className="min-h-screen bg-[#f8f9ff] text-[#151c26] flex flex-col relative selection:bg-[#fddfa4] selection:text-[#261a00]">
-      {/* Top Sovereign Accent Line */}
-      <div className="fixed top-0 inset-x-0 z-50 h-1 bg-gradient-to-r from-transparent via-[#715b2d] to-transparent opacity-90"></div>
+    <MotionConfig reducedMotion="user">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-ink focus:text-white"
+      >
+        رفتن به محتوای اصلی
+      </a>
 
-      {/* Header */}
-      <Header onOpenLicenseModal={() => setIsLicenseModalOpen(true)} />
+      <div className="min-h-dvh flex flex-col">
+        <Header onOpenLicenseModal={openLicense} />
 
-      {/* Main Content Sections */}
-      <main className="w-full pt-14 sm:pt-16 flex-1">
-        {/* 1. Hero Section */}
-        <HeroSection onOpenLicenseModal={() => setIsLicenseModalOpen(true)} />
+        <main id="main" className="flex-1">
+          <HeroSection onOpenLicenseModal={openLicense} />
+          <AboutSection onOpenLicenseModal={openLicense} />
+          <ServicesSection onSelectService={setSelectedService} />
+          <ContactSection />
+        </main>
 
-        {/* 2. About the Attorney Section */}
-        <AboutSection onOpenLicenseModal={() => setIsLicenseModalOpen(true)} />
+        <Footer onOpenLicenseModal={openLicense} />
+      </div>
 
-        {/* 3. Legal Practice Areas (4 Services) */}
-        <ServicesSection onSelectService={(service) => setSelectedService(service)} />
-
-        {/* 4. Contact & Office Location with Direct Consultation Notice */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer onOpenLicenseModal={() => setIsLicenseModalOpen(true)} />
-
-      {/* Floating Contact Bar */}
       <FloatingActionBar />
 
-      {/* Official Bar License Image Lightbox Modal */}
-      <LicenseModal
-        isOpen={isLicenseModalOpen}
-        onClose={() => setIsLicenseModalOpen(false)}
-      />
-
-      {/* Service Detail Modal */}
-      <ServiceDetailModal
-        service={selectedService}
-        onClose={() => setSelectedService(null)}
-      />
-    </div>
+      <LicenseModal isOpen={isLicenseModalOpen} onClose={() => setIsLicenseModalOpen(false)} />
+      <ServiceDetailModal service={selectedService} onClose={() => setSelectedService(null)} />
+    </MotionConfig>
   );
 }

@@ -1,20 +1,38 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+<div dir="rtl">
+
+# دفتر وکالت الهام میرزاخانی
+
+وب‌سایت رسمی **الهام میرزاخانی**، وکیل پایه یک دادگستری در شهرکرد (پروانه وکالت شماره ۴۳۱).
+معرفی وکیل، حوزه‌های فعالیت حقوقی (حقوقی، کیفری، خانواده و ثبتی)، راه‌های ارتباط مستقیم و نشانی دفتر.
+
+## اجرای پروژه
+
+پیش‌نیاز: Node.js نسخه ۲۰ یا بالاتر
+
+```bash
+npm install     # نصب وابستگی‌ها
+npm run dev     # اجرای نسخه توسعه روی http://localhost:3000
+npm run build   # ساخت نسخه نهایی در پوشه dist
+npm run lint    # بررسی تایپ‌ها
+```
+
+## ساختار
+
+| مسیر | توضیح |
+| --- | --- |
+| `src/config/business.ts` | همه اطلاعات قابل ویرایش: مشخصات وکیل، شماره تماس، نشانی، ساعات کاری و خدمات |
+| `src/components/` | بخش‌های صفحه (سربرگ، معرفی، خدمات، تماس، فوتر و پنجره‌ها) |
+| `src/index.css` | رنگ‌ها، فونت و توکن‌های طراحی |
+| `public/favicon.svg` | آیکون سایت |
+
+برای تغییر شماره تلفن، نشانی یا متن خدمات کافی است فقط فایل `src/config/business.ts` ویرایش شود.
+
+## فناوری‌ها
+
+React 19 · TypeScript · Vite · Tailwind CSS 4 · Motion · فونت وزیرمتن
+
+---
+
+طراحی و توسعه: محمد میرزاخانی
+
 </div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/ea2030b3-bfc4-47e8-b932-d4e45e48cd34
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`

@@ -1,123 +1,85 @@
 import React from 'react';
+import { BadgeCheck, Scale } from 'lucide-react';
 import { businessConfig } from '../config/business';
 
 interface FooterProps {
   onOpenLicenseModal: () => void;
 }
 
+const quickLinks = [
+  { label: 'صفحه اصلی', href: '#hero' },
+  { label: 'درباره وکیل', href: '#about' },
+  { label: 'حوزه‌های خدمات حقوقی', href: '#services' },
+  { label: 'تماس و نشانی دفتر', href: '#contact' },
+];
+
 export const Footer: React.FC<FooterProps> = ({ onOpenLicenseModal }) => {
   const { attorney, contact } = businessConfig;
+  const year = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric' }).format(new Date());
 
   return (
-    <footer className="w-full bg-[#eff3ff] border-t border-[#c5c6cd]/30 text-right">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8">
-          {/* Column 1: Identity */}
-          <div className="lg:col-span-5 space-y-3">
-            <div className="flex items-center gap-2 text-[#101c2c]">
-              <div className="w-8 h-8 rounded-lg bg-[#101c2c] text-[#fddfa4] flex items-center justify-center shrink-0">
-                <span className="material-symbols-outlined text-xl">balance</span>
-              </div>
-              <span className="text-lg font-bold">{attorney.fullName}</span>
+    // Extra bottom padding on mobile keeps content clear of the floating contact bar
+    <footer className="bg-ink text-white/70 pb-28 lg:pb-0">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-3 text-white">
+              <span className="w-10 h-10 rounded-xl bg-white/5 ring-1 ring-gold-bright/40 text-gold-soft flex items-center justify-center">
+                <Scale className="w-5 h-5" strokeWidth={1.75} />
+              </span>
+              <span className="text-lg font-extrabold">{attorney.fullName}</span>
             </div>
-            <p className="text-xs sm:text-sm text-[#715b2d] font-bold">
-              {attorney.title} | شماره پروانه وکالت: {attorney.licenseNumber}
+            <p className="text-sm leading-8 max-w-sm">
+              ارائه خدمات حقوقی و قبول وکالت در مراجع قضایی و ثبتی استان {contact.province} با رعایت
+              تعهدات اخلاق حرفه‌ای.
             </p>
-            <p className="text-xs sm:text-sm text-[#44474c] leading-relaxed max-w-sm">
-              ارائه خدمات حقوقی و قبول وکالت در مراجع قضایی و ثبتی استان چهارمحال و بختیاری و شهرکرد با رعایت تعهدات اخلاق حرفه‌ای.
-            </p>
-            <div className="pt-1">
-              <button
-                onClick={onOpenLicenseModal}
-                className="text-xs text-[#715b2d] hover:underline font-semibold inline-flex items-center gap-1"
-              >
-                <span className="material-symbols-outlined text-sm">verified</span>
-                <span>مشاهده پروانه رسمی کانون وکلای دادگستری</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={onOpenLicenseModal}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-gold-soft hover:text-white transition-colors rounded-lg"
+            >
+              <BadgeCheck className="w-4 h-4" strokeWidth={1.75} />
+              مشاهده پروانه رسمی شماره {attorney.licenseNumber}
+            </button>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-sm sm:text-base text-[#101c2c] font-bold">دسترسی سریع</h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#44474c]">
-              <li>
-                <a href="#hero" className="hover:text-[#715b2d] transition-colors">
-                  صفحه اصلی
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-[#715b2d] transition-colors">
-                  درباره وکیل
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#715b2d] transition-colors">
-                  حوزه‌های خدمات حقوقی
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-[#715b2d] transition-colors">
-                  تماس با دفتر و نشانی
-                </a>
-              </li>
+          <nav aria-label="دسترسی سریع" className="md:col-span-3">
+            <h2 className="text-sm font-bold text-white">دسترسی سریع</h2>
+            <ul className="mt-4 space-y-3 text-sm">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="hover:text-gold-soft transition-colors rounded">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Column 3: Contact & Address */}
-          <div className="lg:col-span-4 space-y-3">
-            <h4 className="text-sm sm:text-base text-[#101c2c] font-bold">اطلاعات تماس و نشانی</h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-[#44474c]">
-              <li className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-[#715b2d] text-base shrink-0 mt-0.5">
-                  location_on
-                </span>
-                <span>{contact.address}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#715b2d] text-base shrink-0">
-                  call
-                </span>
-                <a href={contact.telUri} className="hover:text-[#715b2d] transition-colors font-medium" dir="ltr">
+          <div className="md:col-span-4">
+            <h2 className="text-sm font-bold text-white">تماس با دفتر</h2>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li className="leading-7">{contact.address}</li>
+              <li>
+                <a href={contact.telUri} className="font-semibold text-white hover:text-gold-soft transition-colors tabular" dir="ltr">
                   {contact.phoneDisplay}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#715b2d] text-base shrink-0">
-                  chat
-                </span>
-                <a
-                  href={contact.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#715b2d] transition-colors"
-                  dir="ltr"
-                >
-                  {contact.whatsappNumber} (واتس‌اپ)
+              <li className="flex gap-4">
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-gold-soft transition-colors">
+                  واتس‌اپ
                 </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#715b2d] text-base shrink-0">
-                  share
-                </span>
-                <a
-                  href={contact.social.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#715b2d] transition-colors"
-                  dir="ltr"
-                >
-                  {contact.social.instagramHandle} (اینستاگرام)
+                <a href={contact.social.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-gold-soft transition-colors">
+                  اینستاگرام
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom copyright line */}
-        <div className="mt-10 pt-4 border-t border-[#c5c6cd]/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right text-xs text-[#44474c]">
-          <p>کلیه حقوق محفوظ است - وب‌سایت رسمی الهام میرزاخانی، وکیل پایه یک دادگستری.</p>
-          <span className="font-semibold text-[#715b2d]">پروانه وکالت شماره {attorney.licenseNumber}</span>
+        <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
+          <p>© {year} — کلیه حقوق برای دفتر وکالت {attorney.fullName} محفوظ است.</p>
+          <p>{attorney.title} · پروانه وکالت شماره {attorney.licenseNumber}</p>
         </div>
       </div>
     </footer>

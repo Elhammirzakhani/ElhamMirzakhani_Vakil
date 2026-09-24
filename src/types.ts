@@ -1,17 +1,13 @@
+export type ServiceIcon = 'civil' | 'criminal' | 'family' | 'registration';
+export type ValueIcon = 'confidentiality' | 'transparency' | 'documents' | 'followup';
+
 export interface LegalService {
   id: string;
   title: string;
-  icon: string;
+  icon: ServiceIcon;
   description: string;
   details: string[];
   scope: string;
-}
-
-export interface ConsultationRequest {
-  fullName: string;
-  phone: string;
-  serviceCategory: string;
-  description: string;
 }
 
 export interface BusinessConfig {
@@ -30,7 +26,7 @@ export interface BusinessConfig {
       coreValues: {
         title: string;
         desc: string;
-        icon: string;
+        icon: ValueIcon;
       }[];
     };
   };
@@ -39,6 +35,7 @@ export interface BusinessConfig {
     phoneInternational: string;
     telUri: string;
     whatsappNumber: string;
+    whatsappDigits: string;
     whatsappPrefillMessage: string;
     whatsappUrl: string;
     email: string;
@@ -48,12 +45,14 @@ export interface BusinessConfig {
     province: string;
     workingHours: string;
     workingDays: string;
+    workingHoursShort: string;
     appointmentNote: string;
     mapsCoordinates: {
       lat: number;
       lng: number;
     };
     mapsUrl: string;
+    mapsEmbedUrl: string;
     social: {
       instagramHandle: string;
       instagramUrl: string;
