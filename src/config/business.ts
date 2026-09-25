@@ -10,7 +10,7 @@ const address = "استان چهارمحال و بختیاری، شهرکرد، 
 const appointmentNote = "مراجعات حضوری صرفاً با هماهنگی تلفنی قبلی جهت مطالعه دقیق پرونده و مدارک انجام می‌گردد.";
 
 export const businessConfig: BusinessConfig = {
-  siteUrl: "https://elhammirzakhani.ir",
+  siteUrl: "https://www.elhammirzakhani.ir",
   attorney: {
     fullName: "الهام میرزاخانی",
     englishName: "Elham Mirzakhani",
