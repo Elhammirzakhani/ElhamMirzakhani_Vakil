@@ -56,17 +56,19 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service,
       <div className="px-6 py-6 space-y-6 overflow-y-auto">
         <p className="text-sm sm:text-base leading-8 text-muted">{current.description}</p>
 
-        <div>
-          <h3 className="text-sm font-bold text-ink">موضوعات اصلی رسیدگی</h3>
-          <ul className="mt-3 divide-y divide-line border-y border-line">
-            {current.details.map((detail) => (
-              <li key={detail} className="flex items-start gap-3 py-3 text-sm leading-7 text-ink/85">
-                <Check className="w-4 h-4 mt-1.5 text-gold-bright shrink-0" strokeWidth={2.25} />
-                {detail}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {current.detailGroups.map((group, idx) => (
+          <div key={group.title ?? idx}>
+            <h3 className="text-sm font-bold text-ink">{group.title ?? 'موضوعات اصلی رسیدگی'}</h3>
+            <ul className="mt-3 divide-y divide-line border-y border-line">
+              {group.items.map((item) => (
+                <li key={item} className="flex items-start gap-3 py-3 text-sm leading-7 text-ink/85">
+                  <Check className="w-4 h-4 mt-1.5 text-gold-bright shrink-0" strokeWidth={2.25} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
         <p className="text-xs leading-6 text-subtle">
           برای حفظ محرمانگی مدارک، درخواست مشاوره فقط از طریق تماس تلفنی یا پیام مستقیم به وکیل انجام می‌شود.

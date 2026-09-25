@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
+import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { FloatingActionBar } from './components/FloatingActionBar';
@@ -31,8 +32,9 @@ export default function App() {
 
         <main id="main" className="flex-1">
           <HeroSection onOpenLicenseModal={openLicense} />
-          <AboutSection onOpenLicenseModal={openLicense} />
           <ServicesSection onSelectService={setSelectedService} />
+          <AboutSection onOpenLicenseModal={openLicense} />
+          <FaqSection />
           <ContactSection />
         </main>
 

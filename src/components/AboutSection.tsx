@@ -1,64 +1,81 @@
 import React from 'react';
-import { BadgeCheck, MapPin } from 'lucide-react';
+import { BadgeCheck, Clock3, MapPin } from 'lucide-react';
 import { businessConfig } from '../config/business';
 import { valueIcons } from './icons';
-import { Reveal } from './Reveal';
-import { SectionHeading } from './SectionHeading';
+import { InfoCard } from './InfoCard';
 
 interface AboutSectionProps {
   onOpenLicenseModal: () => void;
 }
 
-const persianOrdinals = ['۰۱', '۰۲', '۰۳', '۰۴', '۰۵', '۰۶'];
-
 export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenLicenseModal }) => {
   const { attorney, contact } = businessConfig;
 
   return (
-    <section id="about" aria-labelledby="about-title" className="relative py-20 sm:py-28 bg-surface border-y border-line">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-        {/* Story */}
-        <div className="lg:col-span-5 lg:sticky lg:top-28 self-start space-y-7">
-          <SectionHeading id="about-title" eyebrow={`درباره ${attorney.fullName}`} title={attorney.biography.headline} />
+    <section id="about" aria-labelledby="about-title" className="section-y bg-surface border-y border-line">
+      <div className="shell">
+        <div className="grid grid-cols-[1fr_34%] md:grid-cols-12 gap-x-4 md:gap-x-12 lg:gap-x-16 gap-y-6">
+          {/* Intro */}
+          <div className="md:col-span-7 md:order-1 space-y-3 sm:space-y-4 text-right">
+            <span className="eyebrow">درباره {attorney.fullName}</span>
+            <h2 id="about-title" className="text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-[1.45] text-ink">
+              {attorney.biography.headline}
+            </h2>
+            {attorney.biography.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="text-[13px] sm:text-base leading-7 sm:leading-8 text-muted max-w-2xl">
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
-          <Reveal delay={0.08}>
-            <p className="text-base leading-9 text-ink/85">{attorney.biography.fullText}</p>
-          </Reveal>
+          {/* Office detail photo */}
+          <div className="md:col-span-5 md:order-2 md:row-span-3 relative">
+            <img
+              src={attorney.officeDetailUrl}
+              alt="نمایی از قفسه کتاب‌های حقوقی و تندیس عدالت در دفتر وکالت"
+              width={330}
+              height={440}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full max-h-[22rem] md:max-h-none object-cover object-[30%_center] rounded-2xl md:rounded-[2rem] [mask-image:linear-gradient(to_right,black_70%,transparent)] md:[mask-image:none] md:aspect-[3/4] md:shadow-lift"
+            />
+          </div>
 
-          <Reveal delay={0.14} className="flex flex-wrap gap-2.5 text-sm">
-            <button
-              type="button"
+          {/* Credentials, location and hours */}
+          <div className="col-span-2 md:col-span-7 md:order-3 grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+            <InfoCard icon={MapPin} label="موقعیت دفتر" value={contact.shortAddress} />
+            <InfoCard
+              icon={Clock3}
+              label="ساعات پذیرش"
+              value={contact.workingDays}
+              hint={<span className="tabular">{contact.workingHoursShort}</span>}
+            />
+            <InfoCard
+              icon={BadgeCheck}
+              label="پروانه وکالت"
+              value={`شماره ${attorney.licenseNumber}`}
+              hint="مشاهده تصویر پروانه"
               onClick={onOpenLicenseModal}
-              className="inline-flex items-center gap-2 rounded-full bg-gold-wash border border-gold/25 px-4 py-2 font-semibold text-gold hover:bg-gold-soft transition-colors"
-            >
-              <BadgeCheck className="w-4 h-4" strokeWidth={1.75} />
-              پروانه وکالت {attorney.licenseNumber} · مشاهده
-            </button>
-            <span className="inline-flex items-center gap-2 rounded-full bg-paper border border-line px-4 py-2 text-muted">
-              <MapPin className="w-4 h-4 text-gold-bright" strokeWidth={1.75} />
-              استان {contact.province}، {contact.city}
-            </span>
-          </Reveal>
-        </div>
+              className="col-span-2 lg:col-span-1"
+            />
+          </div>
 
-        {/* Values */}
-        <ol className="lg:col-span-7 divide-y divide-line border-y border-line">
-          {attorney.biography.coreValues.map((value, idx) => {
-            const Icon = valueIcons[value.icon];
-            return (
-              <Reveal as="li" key={value.title} delay={idx * 0.06} className="group py-7 sm:py-8 grid grid-cols-[auto_1fr_auto] items-start gap-5">
-                <span className="text-sm font-bold text-gold-bright tabular pt-1">{persianOrdinals[idx]}</span>
-                <div className="space-y-2">
-                  <h3 className="text-lg sm:text-xl font-bold text-ink">{value.title}</h3>
-                  <p className="text-sm sm:text-base leading-8 text-muted max-w-lg">{value.desc}</p>
-                </div>
-                <span className="w-11 h-11 rounded-2xl bg-paper text-gold flex items-center justify-center ring-1 ring-line transition-colors duration-300 group-hover:bg-ink group-hover:text-gold-soft">
-                  <Icon className="w-5 h-5" strokeWidth={1.75} />
-                </span>
-              </Reveal>
-            );
-          })}
-        </ol>
+          {/* Principles */}
+          <ul className="col-span-2 md:col-span-7 md:order-4 grid grid-cols-2 gap-x-4 gap-y-5 sm:gap-y-6 pt-2">
+            {attorney.biography.coreValues.map((value) => {
+              const Icon = valueIcons[value.icon];
+              return (
+                <li key={value.title} className="flex items-start gap-2.5 sm:gap-3">
+                  <Icon className="w-5 h-5 mt-0.5 text-gold-bright shrink-0" strokeWidth={1.6} />
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-ink">{value.title}</h3>
+                    <p className="mt-1 text-xs sm:text-sm leading-6 text-muted">{value.desc}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </section>
   );

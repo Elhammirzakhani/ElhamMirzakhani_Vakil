@@ -4,7 +4,6 @@ import {
   CalendarClock,
   Eye,
   Gavel,
-  Landmark,
   LockKeyhole,
   Scale,
   Users,
@@ -16,7 +15,6 @@ export const serviceIcons: Record<ServiceIcon, LucideIcon> = {
   civil: Scale,
   criminal: Gavel,
   family: Users,
-  registration: Landmark,
 };
 
 export const valueIcons: Record<ValueIcon, LucideIcon> = {

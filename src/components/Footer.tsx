@@ -8,8 +8,9 @@ interface FooterProps {
 
 const quickLinks = [
   { label: 'صفحه اصلی', href: '#hero' },
-  { label: 'درباره وکیل', href: '#about' },
   { label: 'حوزه‌های خدمات حقوقی', href: '#services' },
+  { label: 'درباره وکیل', href: '#about' },
+  { label: 'سؤالات متداول', href: '#faq' },
   { label: 'تماس و نشانی دفتر', href: '#contact' },
 ];
 
@@ -20,7 +21,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLicenseModal }) => {
   return (
     // Extra bottom padding on mobile keeps content clear of the floating contact bar
     <footer className="bg-ink text-white/70 pb-28 lg:pb-0">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+      <div className="shell pt-14 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3 text-white">
@@ -78,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLicenseModal }) => {
         </div>
 
         <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
-          <p>© {year} — کلیه حقوق برای دفتر وکالت {attorney.fullName} محفوظ است.</p>
+          <p suppressHydrationWarning>© {year} — کلیه حقوق برای دفتر وکالت {attorney.fullName} محفوظ است.</p>
           <p>{attorney.title} · پروانه وکالت شماره {attorney.licenseNumber}</p>
         </div>
       </div>

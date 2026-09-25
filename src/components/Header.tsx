@@ -10,8 +10,9 @@ interface HeaderProps {
 
 const navLinks = [
   { label: 'صفحه اصلی', id: 'hero' },
-  { label: 'درباره وکیل', id: 'about' },
   { label: 'خدمات حقوقی', id: 'services' },
+  { label: 'درباره وکیل', id: 'about' },
+  { label: 'سؤالات متداول', id: 'faq' },
   { label: 'تماس و نشانی', id: 'contact' },
 ];
 
@@ -55,20 +56,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-40 transition-[background-color,box-shadow,border-color] duration-300 border-b ${
-          isScrolled || mobileMenuOpen
-            ? 'bg-paper/90 backdrop-blur-lg border-line shadow-soft'
-            : 'bg-transparent border-transparent'
+        className={`fixed top-0 inset-x-0 z-40 bg-paper/95 backdrop-blur-lg border-b border-line transition-shadow duration-300 ${
+          isScrolled || mobileMenuOpen ? 'shadow-soft' : ''
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-[4.5rem]">
+        <div className="shell flex items-center justify-between h-16 sm:h-[4.5rem]">
           {/* Brand */}
           <a href="#hero" className="flex items-center gap-3 group rounded-lg">
             <span className="w-10 h-10 rounded-xl bg-ink text-gold-soft flex items-center justify-center shrink-0 ring-1 ring-gold/40 transition-transform duration-300 group-hover:-rotate-6">
               <Scale className="w-5 h-5" strokeWidth={1.75} />
             </span>
             <span className="flex flex-col leading-tight">
-              <span className="text-base sm:text-lg font-extrabold text-ink tracking-tight">{attorney.fullName}</span>
+              <span className="text-[1.05rem] sm:text-lg font-extrabold text-ink tracking-tight">{attorney.fullName}</span>
               <span className="text-[11px] sm:text-xs text-gold font-medium">
                 {attorney.title} · پروانه {attorney.licenseNumber}
               </span>
@@ -76,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
           </a>
 
           {/* Desktop navigation */}
-          <nav aria-label="منوی اصلی" className="hidden lg:flex items-center gap-1 rounded-full bg-surface/70 ring-1 ring-line px-1.5 py-1.5">
+          <nav aria-label="منوی اصلی" className="hidden xl:flex items-center gap-1 rounded-full bg-surface/70 ring-1 ring-line px-1.5 py-1.5">
             {navLinks.map((link) => {
               const isActive = activeId === link.id;
               return (
@@ -84,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
                   key={link.id}
                   href={`#${link.id}`}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${
+                  className={`relative px-3.5 py-1.5 text-sm font-medium whitespace-nowrap rounded-full transition-colors ${
                     isActive ? 'text-white' : 'text-muted hover:text-ink'
                   }`}
                 >
@@ -106,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
             <button
               type="button"
               onClick={onOpenLicenseModal}
-              className="hidden md:inline-flex items-center gap-1.5 h-10 px-3.5 text-xs font-semibold text-gold rounded-xl border border-gold/30 bg-gold-wash hover:bg-gold-soft transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 h-10 px-3.5 whitespace-nowrap text-xs font-semibold text-gold rounded-xl border border-gold/30 bg-gold-wash hover:bg-gold-soft transition-colors"
             >
               <BadgeCheck className="w-4 h-4" strokeWidth={1.75} />
               <span>مشاهده پروانه</span>
@@ -114,7 +113,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
 
             <a
               href={contact.telUri}
-              className="hidden sm:inline-flex btn-primary min-h-10 h-10 px-4 text-sm"
+              className="hidden sm:inline-flex btn-primary min-h-10 h-10 px-4 text-sm whitespace-nowrap"
               aria-label={`تماس با شماره ${contact.phoneDisplay}`}
             >
               <Phone className="w-4 h-4" strokeWidth={1.75} />
@@ -124,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="lg:hidden w-10 h-10 inline-flex items-center justify-center rounded-xl text-ink hover:bg-paper-deep transition-colors"
+              className="xl:hidden w-10 h-10 inline-flex items-center justify-center rounded-xl text-ink hover:bg-paper-deep transition-colors"
               aria-label={mobileMenuOpen ? 'بستن منو' : 'باز کردن منو'}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -139,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-30 lg:hidden bg-ink/40 backdrop-blur-sm"
+            className="fixed inset-0 z-30 xl:hidden bg-ink/40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -147,7 +146,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLicenseModal }) => {
           >
             <motion.div
               id="mobile-menu"
-              className="absolute top-16 inset-x-3 rounded-3xl bg-surface shadow-deep ring-1 ring-line p-5 space-y-5"
+              className="absolute top-16 sm:top-[4.5rem] inset-x-3 sm:inset-x-auto sm:left-6 sm:w-96 rounded-3xl bg-surface shadow-deep ring-1 ring-line p-5 space-y-5"
               initial={{ opacity: 0, y: -12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}

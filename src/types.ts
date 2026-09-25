@@ -1,28 +1,46 @@
-export type ServiceIcon = 'civil' | 'criminal' | 'family' | 'registration';
+export type ServiceIcon = 'civil' | 'criminal' | 'family';
 export type ValueIcon = 'confidentiality' | 'transparency' | 'documents' | 'followup';
+
+export interface ServiceDetailGroup {
+  title?: string;
+  items: string[];
+}
 
 export interface LegalService {
   id: string;
   title: string;
   icon: ServiceIcon;
+  summary: string;
   description: string;
-  details: string[];
+  detailGroups: ServiceDetailGroup[];
   scope: string;
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface BusinessConfig {
+  siteUrl: string;
   attorney: {
     fullName: string;
     englishName: string;
     title: string;
     barAssociation: string;
     licenseNumber: string;
-    avatarUrl: string;
+    portrait: {
+      srcSet: string;
+      fallbackSrc: string;
+      width: number;
+      height: number;
+    };
+    officeDetailUrl: string;
     licenseImageUrl: string;
     biography: {
       headline: string;
       lead: string;
-      fullText: string;
+      paragraphs: string[];
       coreValues: {
         title: string;
         desc: string;
@@ -41,6 +59,7 @@ export interface BusinessConfig {
     email: string;
     emailUri: string;
     address: string;
+    shortAddress: string;
     city: string;
     province: string;
     workingHours: string;
@@ -59,4 +78,5 @@ export interface BusinessConfig {
     };
   };
   services: LegalService[];
+  faqs: FaqItem[];
 }
